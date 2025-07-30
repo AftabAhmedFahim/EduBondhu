@@ -1,0 +1,113 @@
+
+.signup-wrapper {
+  min-height: 100vh;
+  background-color: #f5f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signup-navbar {
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signup-logo {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #222;
+}
+
+.signup-nav-links {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.signup-nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.login-nav-btn {
+  padding: 6px 14px;
+  background-color: #eee;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.login-nav-btn:hover {
+  background-color: #ddd;
+}
+
+.signup-box {
+  width: 100%;
+  max-width: 480px;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  margin: 40px auto;
+}
+
+.signup-box h2 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.signup-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.signup-form .form-label {
+  font-weight: 500;
+  color: #444;
+}
+
+.signup-form .form-control,
+.signup-form .form-select {
+  border-radius: 8px;
+  padding: 0.65rem;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+.signup-btn {
+  width: 100%;
+  background-color: #2563eb;
+  color: #fff;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 1.2rem;
+  transition: background-color 0.3s;
+}
+
+.signup-btn:hover {
+  background-color: #1e40af;
+}
+
+.signup-extra {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.signup-extra span {
+  color: #2563eb;
+  cursor: pointer;
+  text-decoration: underline;
+}

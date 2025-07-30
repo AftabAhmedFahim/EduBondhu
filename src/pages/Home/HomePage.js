@@ -1,13 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./HomePage.css"; // Make sure this CSS file exists
+import "./HomePage.css";
 
 const HomePage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="home">
-      {/* Navbar */}
       <nav className="navbar">
         <div className="logo">EduBondhu</div>
         <div className="nav-links">
@@ -23,7 +22,6 @@ const HomePage = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section className="hero">
         <h1>Bridging Students, Tutors & Success</h1>
         <p>
@@ -40,7 +38,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="features">
         <h2>Key Features</h2>
         <h3>Empowering Education, One Connection at a Time</h3>
@@ -73,7 +70,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Final Call-to-Action */}
       <section className="final-cta">
         <h2>Ready to Elevate Your Learning Journey?</h2>
         <p>
@@ -85,7 +81,6 @@ const HomePage = () => {
           Get Started
         </button>
 
-        {/* Footer */}
         <footer className="footer">
           <div className="footer-links">
             <a href="#">About Us</a>
