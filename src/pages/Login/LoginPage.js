@@ -5,8 +5,6 @@ import "./LoginPage.css"; // Optional: Create this for your custom styles
 const LoginPage = () => {
   const navigate = useNavigate();
 
-
-
   return (
     <div className="login-container">
       <div className="login-box">
@@ -23,7 +21,7 @@ const LoginPage = () => {
           </div>
 
           <div className="form-bottom">
-            <a href="#" className="forgot-link">Forgot Password?</a>
+            <a className="forgot-link">Forgot Password?</a>
           </div>
 
           <button className="login-btn">Login</button>
@@ -31,9 +29,11 @@ const LoginPage = () => {
 
         <div className="extra-link">
           Don’t have an account?{" "}
-          
+        <span onClick={() => navigate("/signup")} className="link-action">Sign up</span>
         </div>
-
+        <div className="back-home" onClick={() => navigate("/")}>
+          ← Back to Home
+        </div>
         
       </div>
     </div>
