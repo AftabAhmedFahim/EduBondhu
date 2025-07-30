@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./HomePage.css";
+import "./HomePage.css"; // Make sure this CSS file exists
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Key Features */}
+      {/* Features Section */}
       <section className="features">
         <h2>Key Features</h2>
         <h3>Empowering Education, One Connection at a Time</h3>
@@ -73,7 +73,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Final Call to Action */}
+      {/* Final Call-to-Action */}
       <section className="final-cta">
         <h2>Ready to Elevate Your Learning Journey?</h2>
         <p>
