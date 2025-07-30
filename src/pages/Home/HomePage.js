@@ -4,6 +4,16 @@ import "./HomePage.css";
 const HomePage = () => {
   return (
     <div className="home">
+      <nav className="navbar">
+        <div className="logo">EduBondhu</div>
+        <div className="nav-links">
+          <button>About</button>
+          <button>Contact</button>
+          <button>Help</button>
+          <button className="signup">Sign Up</button>
+          <button className="login">Log In</button>
+        </div>
+      </nav>
       <section className="hero">
         <h1>Bridging Students, Tutors & Success</h1>
         <p>
@@ -15,6 +25,8 @@ const HomePage = () => {
           <button className="tutor-btn">I'm a Tutor</button>
         </div>
       </section>
+
+      
 
       <section className="features">
         <h2>Key Features</h2>
@@ -55,8 +67,19 @@ const HomePage = () => {
           guidance or a tutor looking to share your expertise, we have the resources you need.
         </p>
         <button className="get-started-btn">Get Started</button>
+        <footer className="footer">
+        <div className="footer-links">
+          <a href="#">About Us</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <p>© 2024 EduBondhu. All rights reserved.</p>
+      </footer>
       </section>
     </div>
+
+     
   );
 };
 
