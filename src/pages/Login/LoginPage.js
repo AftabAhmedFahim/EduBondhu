@@ -1,30 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
+import axios from "axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      setError("Please enter both email and password");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Wrong email or password");
+      } else {
+        setError("");
+        navigate("/profile");
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again later.");
+    }
+  };
 
   return (
     <div className="login-container">
       <div className="login-box">
         <h2>Login</h2>
-        <form >
+        <form onSubmit={handleLogin} >
           <div className="form-group">
             <label>Email</label>
-            <input placeholder="Enter your email"/>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
           <div className="form-group">
             <label>Password</label>
-            <input placeholder="Enter your password" />
+             <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
+
+          {error && <div className="error-msg">{error}</div>}
 
           <div className="form-bottom">
             <a className="forgot-link">Forgot Password?</a>
           </div>
 
-          <button className="login-btn">Login</button>
+          <button className="login-btn" type="submit">
+            Login
+          </button>
         </form>
 
         <div className="extra-link">
