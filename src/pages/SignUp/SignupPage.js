@@ -40,8 +40,8 @@ const SignupPage = () => {
 
   return (
     <div className="signup-wrapper">
-      <nav className="navbar">
-        <div className="logo">EduBondhu</div>
+      <nav className="signup-navbar">
+        <div className="signup-logo"> EduBondhu</div>
         <div className="nav-links">
           <button>About</button>
           <button>Contact</button>
@@ -51,6 +51,7 @@ const SignupPage = () => {
           </button>
         </div>
       </nav>
+
 
       <div className="signup-content">
         <div className="signup-box">
