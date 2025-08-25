@@ -25,12 +25,18 @@ const LoginPage = () => {
       });
 
       const data = await res.json();
-
+      console.log("Login response:" , data);
       if (!res.ok) {
         setError(data.message || "Wrong email or password");
       } else {
         setError("");
-        navigate("/profile");
+        if (data.user){
+          localStorage.setItem("user", JSON.stringify(data.user));
+          navigate("/profile");
+        }
+        else{
+          setError("Invalid Response from Server");
+        }
       }
     } catch (err) {
       setError("Something went wrong. Please try again later.");
