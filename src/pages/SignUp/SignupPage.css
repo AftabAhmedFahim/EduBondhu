@@ -1,4 +1,3 @@
-
 .signup-wrapper {
   min-height: 100vh;
   background-color: #f5f6f8;
@@ -15,6 +14,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap:wrap;
 }
 
 .signup-logo {
@@ -27,6 +27,7 @@
   display: flex;
   gap: 1.25rem;
   align-items: center;
+  flex-wrap:wrap;
 }
 
 .signup-nav-links a {
@@ -110,4 +111,49 @@
   color: #2563eb;
   cursor: pointer;
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .signup-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .signup-nav-links {
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 0.75rem;
+  }
+
+  .signup-box {
+    padding: 1.5rem;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-box {
+    padding: 1rem;
+    margin: 15px auto;
+    border-radius: 8px;
+  }
+
+  .signup-box h2 {
+    font-size: 1.25rem;
+  }
+
+  .signup-form .form-control,
+  .signup-form .form-select {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .signup-btn {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  .signup-extra {
+    font-size: 0.85rem;
+  }
 }
