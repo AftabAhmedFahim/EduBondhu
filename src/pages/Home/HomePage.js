@@ -10,7 +10,9 @@ const HomePage = () => {
       <nav className="navbar">
         <div className="logo">EduBondhu</div>
         <div className="nav-links">
-          <button>About</button>
+          <button onClick={() => navigate("/about")}>
+            About
+          </button>
           <button>Contact</button>
           <button>Help</button>
           <button className="signup" onClick={() => navigate("/signup")}>
