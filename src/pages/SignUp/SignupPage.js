@@ -43,7 +43,9 @@ const SignupPage = () => {
       <nav className="signup-navbar">
         <div className="signup-logo"> EduBondhu</div>
         <div className="nav-links">
-          <button>About</button>
+          <button onClick={() => navigate("/about")}>
+            About
+          </button>
           <button>Contact</button>
           <button>Help</button>
           <button className="login" onClick={() => navigate("/login")}>
