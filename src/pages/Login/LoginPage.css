@@ -2,63 +2,95 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
-  background-color: #f8f9fa;
-  padding: 1rem;
+  min-height: 100vh;
+  background: url('../../assets/login-bg.jpg');
+  position: relative;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
 }
 
 .login-box {
-  background-color: white;
+  position: relative;
+  z-index: 1;
+
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(10px);
+
   padding: 2rem 3rem;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  color: #fff;
 }
 
 .login-box h2 {
   text-align: center;
   margin-bottom: 1.5rem;
+  color: #fff;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.form-bottom {
+  margin-bottom: 1.2rem;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-weight: 500;
+  margin-bottom: 1.2rem;
 }
 
 .form-group input {
   width: 100%;
   padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255,0.2);
+  color: #fff;
+  outline: none;
 }
 
-.forgot-link {
-  font-size: 0.9rem;
-  color: #007bff;
-  text-decoration: none;
-  float: right;
-  margin-bottom: 1rem;
+.form-group input::placeholder {
+  color: #e0e0e0;
+}
+
+.forgot-link,
+.link-action,
+.back-home {
+  color: #cce3ff;
 }
 
 .login-btn {
   width: 100%;
-  padding: 0.6rem;
+  padding: 0.7rem;
   background-color: #007bff;
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #0056b3;
 }
 
 .extra-link {
+  margin-top : 1rem;
   text-align: center;
   font-size: 0.9rem;
 }
@@ -73,9 +105,8 @@
   text-align: center;
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: #6c757d;
+  color: #3890ed;
   cursor: pointer;
-
 }
 
 @media (max-width: 480px) {
