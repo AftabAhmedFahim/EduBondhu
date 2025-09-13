@@ -1,15 +1,15 @@
 .signup-wrapper {
   min-height: 100vh;
-  background-color: #f5f6f8;
+  background: url('../../assets/login-bg.jpg') no-repeat center fixed;
+  background-size: cover;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .signup-navbar {
   width: 100%;
   padding: 1rem 2rem;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
   border-bottom: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-between;
@@ -20,7 +20,13 @@
 .signup-logo {
   font-weight: bold;
   font-size: 1.25rem;
-  color: #222;
+  color: #007bff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  outline: none;
 }
 
 .signup-nav-links {
@@ -30,10 +36,20 @@
   flex-wrap:wrap;
 }
 
-.signup-nav-links a {
-  text-decoration: none;
-  color: #333;
+.signup-nav-links .nav-btn {
+  background: none;
+  border: none;
   font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 6px 12px;
+  color: #333;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.signup-nav-links .nav-btn:hover {
+  background-color: #f0f0f0;
 }
 
 .login-nav-btn {
@@ -49,14 +65,21 @@
   background-color: #ddd;
 }
 
+.signup-content {
+  flex:1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 60px; 
+}
+
 .signup-box {
   width: 100%;
-  max-width: 480px;
-  background-color: #fff;
+  max-width: 600px;
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
-  margin: 40px auto;
 }
 
 .signup-box h2 {
@@ -81,6 +104,14 @@
   padding: 0.65rem;
   border: 1px solid #ccc;
   font-size: 0.95rem;
+  color: #000;
+  background-color: #fff;
+}
+
+.signup-form .form-select[name="role"] {
+  width: 100%;         
+  margin-left: auto;    
+  display: block;
 }
 
 .signup-btn {
