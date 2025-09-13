@@ -1,4 +1,10 @@
 /* ========== Navbar ========== */
+.about-container {
+  min-height: 100vh;
+  background: url('../../assets/login-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -122,8 +128,8 @@
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 25px;
-  width: 250px;
+  padding: 30px;
+  width: 280px;
   text-align: center;
   transition: all 0.3s ease;
 }

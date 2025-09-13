@@ -8,6 +8,7 @@ const SignupPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
+    institution: "",
     address: "",
     contact: "",
     role: "",
@@ -41,16 +42,11 @@ const SignupPage = () => {
   return (
     <div className="signup-wrapper">
       <nav className="signup-navbar">
-        <div className="signup-logo"> EduBondhu</div>
-        <div className="nav-links">
-          <button onClick={() => navigate("/about")}>
-            About
-          </button>
-          <button>Contact</button>
-          <button>Help</button>
-          <button className="login" onClick={() => navigate("/login")}>
-            Log In
-          </button>
+        <button className="signup-logo" onClick={() => navigate("/")}>EduBondhu</button>
+        <div className="signup-nav-links">
+          <button className="nav-btn" onClick={() => navigate("/about")}>About</button>
+          <button className="nav-btn" onClick={() => navigate("/contact")}>Contact</button>
+          <button className="nav-btn" onClick={() => navigate("/help")}>Help</button>
         </div>
       </nav>
 
@@ -62,6 +58,17 @@ const SignupPage = () => {
             <Form.Group className="form-group">
               <Form.Label className="form-label">Full name</Form.Label>
               <Form.Control type="text" name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Enter your full name"/>
+            </Form.Group>
+
+            <Form.Group className="form-group">
+            <Form.Label className="form-label">Institution Name</Form.Label>
+            <Form.Control 
+            type="text" 
+            name="institution" 
+            value={formData.institution} 
+            onChange={handleChange} 
+            placeholder="Enter your institution name"
+            />
             </Form.Group>
 
             <Form.Group className="form-group">

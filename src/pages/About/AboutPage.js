@@ -55,7 +55,7 @@ export default function AboutPage() {
 
       {/* About Section */}
       <section className="about-section">
-        <h1>About Us</h1>
+        <h1><u>About Us</u></h1>
         <div className="team-grid">
           {teamMembers.map((member, index) => (
             <div className="team-card" key={index}>
