@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/User.js";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -27,7 +28,24 @@ router.post("/signup", async (req, res) => {
     });
 
     await newUser.save();
-    res.status(201).json({ message: "User registered successfully!" });
+
+    const token = jwt.sign(
+      { id: newUser._id, email: newUser.email, role: newUser.role }, 
+      process.env.JWT_SECRET, 
+      { expiresIn: process.env.JWT_EXPIRES || "1d" }
+    )
+
+    res.status(201).json({ 
+      message: "User registered successfully!", 
+      token, 
+      user: {
+        id: newUser._id,
+        fullName: newUser.fullName,
+        email: newUser.email,
+        role: newUser.role,
+        contact: newUser.contact
+      }
+    });
 
   } catch (error) {
     console.error(error);
@@ -68,8 +86,15 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid password" });
     }
 
+    const token = jwt.sign(
+    { id: user._id, email: user.email, role: user.role }, 
+    process.env.JWT_SECRET, 
+    { expiresIn: process.env.JWT_EXPIRES || "1d" }
+    );
+
     res.status(200).json({
     message: "Login successful",
+    token,
     user: { 
      id: user._id, 
      email: user.email, 
