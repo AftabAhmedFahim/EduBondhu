@@ -23,13 +23,36 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    for (let key in formData) {
+    if (!formData[key].trim()) {
+      alert(`${key} cannot be empty`);
+      return;
+      }
+    }
 
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
-    try {
+
+    if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(formData.email)) {
+    alert("Email must end with @gmail.com");
+    return;
+  }
+
+  if (!/^(?=.*[A-Z])(?=.*\d).{8,}$/.test(formData.password)) {
+    alert("Password must be at least 8 characters, include a digit and a capital letter");
+    return;
+  }
+
+  if (!/^01\d{9}$/.test(formData.contact)) {
+    alert("Phone number must start with 01 and be 11 digits long");
+    return;
+  }
+
+  try {
       const res = await axios.post("http://localhost:5000/api/auth/signup", formData);
       alert(res.data.message);
       navigate("/login");
