@@ -5,10 +5,15 @@ const router = express.Router();
 
 router.post("/signup", async (req, res) => {
   try {
-    const { fullName, address, contact, role, email, password } = req.body;
+    const { fullName, institution, address, contact, role, email, password } = req.body;
+
+    if ([fullName, institution, address, contact, role, email, password].some(field => !field || !field.trim())) {
+      return res.status(400).json({ message: "All fields are required and cannot be empty" });
+    }
 
     const newUser = new User({
       fullName,
+      institution,
       address,
       contact,
       role,
