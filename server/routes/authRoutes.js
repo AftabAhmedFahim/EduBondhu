@@ -11,6 +11,11 @@ router.post("/signup", async (req, res) => {
       return res.status(400).json({ message: "All fields are required and cannot be empty" });
     }
 
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email is already registered. Please login or use another email." });
+    }
+
     const newUser = new User({
       fullName,
       institution,
@@ -26,6 +31,11 @@ router.post("/signup", async (req, res) => {
 
   } catch (error) {
     console.error(error);
+
+    if (error.code === 11000 && error.keyPattern.email) {
+      return res.status(400).json({ message: "Email is already registered." });
+    }
+    
     res.status(500).json({ error: "Something went wrong" });
   }
 });
@@ -53,7 +63,8 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
 
-    if (user.password !== password) {
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
       return res.status(400).json({ message: "Invalid password" });
     }
 
