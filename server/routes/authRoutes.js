@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import { authenticateToken} from "../middleware/auth.js"; 
 
 const router = express.Router();
 
@@ -58,13 +59,31 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.get("/users", async (req, res) => {
+router.get("/users", authenticateToken, async (req, res) => {
   try {
     const users = await User.find().select("-password"); 
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+
+router.get("/users/tutors", authenticateToken, async (req, res) => {
+  try {
+    const tutors = await User.find({ role: "Tutor" }).select("-password");
+    res.status(200).json(tutors);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch tutors" });
+  }
+});
+
+router.get("/users/students", authenticateToken, async (req, res) => {
+  try {
+    const students = await User.find({ role: "Student" }).select("-password");
+    res.status(200).json(students);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch students" });
   }
 });
 
@@ -108,7 +127,5 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: "Something went wrong during login" });
   }
 });
-
-
 
 export default router;
