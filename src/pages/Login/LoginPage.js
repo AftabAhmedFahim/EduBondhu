@@ -31,6 +31,7 @@ const LoginPage = () => {
       } else {
         setError("");
         if (data.user){
+          localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
           navigate("/profile");
         }
