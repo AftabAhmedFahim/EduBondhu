@@ -1,0 +1,5 @@
+@import "../SignUp/SignupPage.css";
+
+.signup-box h2 {
+  color: #16a34a; /* green for success vibe */
+}
