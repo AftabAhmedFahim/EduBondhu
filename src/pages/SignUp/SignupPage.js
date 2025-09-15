@@ -53,12 +53,27 @@ const SignupPage = () => {
   }
 
   try {
-      const res = await axios.post("http://localhost:5000/api/auth/signup", formData);
-      alert(res.data.message);
-      navigate("/login");
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong",err);
+      const { fullName, institution, address, contact, role, email, password } = formData;
+
+      const res = await axios.post("http://localhost:5000/api/auth/signup", {
+        fullName,
+        institution,
+        address,
+        contact,
+        role,
+        email,
+        password,
+      });
+      if (res.data.success) {
+        alert(res.data.message);
+        navigate("/verify-otp", { state: { email: formData.email } });
+      } else {
+        alert(res.data.message || "Signup failed");
+      }
+
+    }catch (err) {
+      console.error("Signup error:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Something went wrong during signup");
     }
   };
 
