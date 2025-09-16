@@ -10,6 +10,7 @@ import HelpPage from "./pages/Help/Help";
 import ForgotPassword from "./pages/ForgotPassword/forgotPassword";
 import SearchPage from "./pages/Search/searchPage";
 import EditProfile from "./pages/Profile/editProfile";
+import PostPage from "./pages/PostPage/postPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/searchPage" element={<SearchPage/>}/>
         <Route path="/editProfile" element={<EditProfile/>}/>
+        <Route path="/postPage" element={<PostPage />} />
       </Routes>
     </Router>
   );
