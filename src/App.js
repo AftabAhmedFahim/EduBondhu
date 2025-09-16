@@ -11,6 +11,7 @@ import ForgotPassword from "./pages/ForgotPassword/forgotPassword";
 import SearchPage from "./pages/Search/searchPage";
 import EditProfile from "./pages/Profile/editProfile";
 import PostPage from "./pages/PostPage/postPage";
+import MessagePage from "./pages/Message/message";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/searchPage" element={<SearchPage/>}/>
         <Route path="/editProfile" element={<EditProfile/>}/>
         <Route path="/postPage" element={<PostPage />} />
+        <Route path="/messages" element={<MessagePage />} />
       </Routes>
     </Router>
   );

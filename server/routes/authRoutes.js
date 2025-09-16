@@ -4,6 +4,7 @@ import Otp from "../models/Otp.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
+import Message from "../models/Message.js";
 import { authenticateToken} from "../middleware/auth.js"; 
 
 const router = express.Router();
@@ -335,5 +336,52 @@ router.post("/confirm-email-change", authenticateToken, async (req, res) => {
   }
 });
 
+router.post("/messages", authenticateToken, async (req, res) => {
+  try {
+    const { to, text } = req.body;
+    const from = req.user.id;
+    if (!to || !text) return res.status(400).json({ message: "Recipient and text required" });
+
+    const message = await Message.create({ from, to, text });
+    res.status(201).json(message);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to send message" });
+  }
+});
+
+router.get("/messages/:userId", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const myId = req.user.id;
+    const messages = await Message.find({
+      $or: [
+        { from: myId, to: userId },
+        { from: userId, to: myId }
+      ]
+    }).sort({ time: 1 });
+    res.status(200).json(messages);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch messages" });
+  }
+});
+
+router.get("/chat-users", authenticateToken, async (req, res) => {
+  try {
+    const myId = req.user.id;
+    // Find all users who have exchanged messages with the logged-in user
+    const messages = await Message.find({ $or: [{ from: myId }, { to: myId }] });
+    const userIds = [
+      ...new Set(
+        messages
+          .map(msg => (msg.from.toString() === myId ? msg.to.toString() : msg.from.toString()))
+          .filter(id => id !== myId)
+      )
+    ];
+    const users = await User.find({ _id: { $in: userIds } }).select("-password");
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch chat users" });
+  }
+});
 
 export default router;
