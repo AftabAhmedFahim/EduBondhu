@@ -246,4 +246,68 @@ router.post("/reset-password", async (req, res) => {
   }
 });
 
+router.post("/request-email-change", authenticateToken, async (req, res) => {
+  try {
+    const { newEmail } = req.body;
+    const userId = req.user.id; // from JWT
+
+    if (!newEmail) return res.status(400).json({ message: "New email required" });
+
+    // Check if email already exists
+    const existing = await User.findOne({ email: newEmail });
+    if (existing) return res.status(400).json({ message: "Email is already taken" });
+
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    await Otp.deleteMany({ email: newEmail }); // clear old OTPs for that email
+    await Otp.create({ email: newEmail, otp: otpCode, createdAt: new Date() });
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: newEmail,
+      subject: "Confirm your new email",
+      text: `Your OTP is ${otpCode}. It will expire in 5 minutes.`,
+    });
+
+    res.status(200).json({ message: "OTP sent to new email" });
+  } catch (error) {
+    console.error("Request email change error:", error);
+    res.status(500).json({ message: "Failed to send OTP" });
+  }
+});
+
+
+// Confirm email change
+router.post("/confirm-email-change", authenticateToken, async (req, res) => {
+  try {
+    const { newEmail, otp } = req.body;
+    const userId = req.user.id; // from JWT
+
+    const otpRecord = await Otp.findOne({ email: newEmail, otp });
+    if (!otpRecord) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { email: newEmail },
+      { new: true }
+    ).select("-password");
+
+    await Otp.deleteMany({ email: newEmail });
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({ message: "Email updated successfully", user });
+  } catch (error) {
+    console.error("Confirm email change error:", error);
+    res.status(500).json({ message: "Failed to update email" });
+  }
+});
+
+
 export default router;

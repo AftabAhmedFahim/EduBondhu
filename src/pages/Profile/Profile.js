@@ -103,8 +103,7 @@ const Profile = () => {
             </button>
             {dropdownOpen && (
               <div className="dropdown-menu">
-                <a href="#">Edit Profile</a>
-                <a href="#">Settings & Privacy</a>
+                <Link to="/editProfile">Edit Profile</Link>
                 <Link to="/help">Help</Link>
                 <a onClick={handleLogout} style={{ cursor: "pointer" }}>Log Out</a>
               </div>
