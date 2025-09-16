@@ -8,6 +8,7 @@ import AboutPage from "./pages/About/AboutPage";
 import VerifyOtpPage from "./pages/VerifyOtp/VerifyOtpPage";
 import HelpPage from "./pages/Help/Help";
 import ForgotPassword from "./pages/ForgotPassword/forgotPassword";
+import SearchPage from "./pages/Search/searchPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/verify-otp" element={<VerifyOtpPage />} />
         <Route path="/help" element={<HelpPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/searchPage" element={<SearchPage/>}/>
       </Routes>
     </Router>
   );

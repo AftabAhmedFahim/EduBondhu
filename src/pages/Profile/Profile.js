@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {Link } from "react-router-dom";
 import "./Profile.css";
 
 const Profile = () => {
@@ -92,7 +93,7 @@ const Profile = () => {
           <div className="logo">EduBondhu</div>
           <ul className="nav-links">
             <li><a href="#">My Profile</a></li>
-            <li><a href="#">Search Tutors</a></li>
+            <li><Link to="/searchPage">Search</Link></li>
             <li><a href="#">Messages</a></li>
           </ul>
 
@@ -104,7 +105,7 @@ const Profile = () => {
               <div className="dropdown-menu">
                 <a href="#">Edit Profile</a>
                 <a href="#">Settings & Privacy</a>
-                <a href="#">Help</a>
+                <Link to="/help">Help</Link>
                 <a onClick={handleLogout} style={{ cursor: "pointer" }}>Log Out</a>
               </div>
             )}
