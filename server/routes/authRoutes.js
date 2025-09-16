@@ -91,6 +91,7 @@ router.post("/verify-otp", async (req, res) => {
         fullName: user.fullName,
         role: user.role,
         contact: user.contact,
+        
       }
     });
 
@@ -165,7 +166,9 @@ router.post("/login", async (req, res) => {
      email: user.email, 
      fullName: user.fullName,
      role: user.role,            
-     contact: user.contact
+     contact: user.contact,
+     institution: user.institution,
+     address: user.address 
     }
   });
   } catch (error) {
