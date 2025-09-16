@@ -95,7 +95,7 @@ const Profile = () => {
             <li><a href="#">My Profile</a></li>
             <li><Link to="/postPage">Feed</Link></li>
             <li><Link to="/searchPage">Search</Link></li>
-            <li><a href="#">Messages</a></li>
+            <li><Link to="/messages">Messages</Link></li>
           </ul>
 
           <div className="profile-dropdown">
