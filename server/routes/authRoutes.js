@@ -222,6 +222,32 @@ router.post("/forgot-password", async (req, res) => {
   }
 });
 
+router.put("/user/:id", authenticateToken, async (req, res) => {
+  try {
+    const { fullName, address, institution, contact, password } = req.body;
+    const updateFields = { fullName, address, institution, contact };
+
+    // If password is provided, hash it
+    if (password && password.trim()) {
+      const hashed = await bcrypt.hash(password, 10);
+      updateFields.password = hashed;
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      updateFields,
+      { new: true }
+    ).select("-password");
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({ message: "Profile updated", user });
+  } catch (error) {
+    console.error("Profile update error:", error);
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+});
+
 /* ---------------- NEW: Verify OTP & reset password ---------------- */
 router.post("/reset-password", async (req, res) => {
   try {

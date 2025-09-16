@@ -93,6 +93,7 @@ const Profile = () => {
           <div className="logo">EduBondhu</div>
           <ul className="nav-links">
             <li><a href="#">My Profile</a></li>
+            <li><Link to="/postPage">Feed</Link></li>
             <li><Link to="/searchPage">Search</Link></li>
             <li><a href="#">Messages</a></li>
           </ul>
