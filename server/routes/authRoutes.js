@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/User.js";
 import Otp from "../models/Otp.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 import { authenticateToken} from "../middleware/auth.js"; 
 
@@ -190,5 +191,59 @@ router.delete("/users/:id", async (req, res) => {
   }
 });
 
+router.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ message: "Email is required" });
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: "User not found" });
+
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    await Otp.deleteMany({ email }); // clear old OTPs
+    await Otp.create({ email, otp: otpCode, createdAt: new Date() });
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Password reset OTP",
+      text: `Your OTP is ${otpCode}. It will expire in 5 minutes.`,
+    });
+
+    res.status(200).json({ message: "OTP sent to email" });
+  } catch (error) {
+    console.error("Forgot-password error:", error);
+    res.status(500).json({ message: "Failed to send OTP" });
+  }
+});
+
+/* ---------------- NEW: Verify OTP & reset password ---------------- */
+router.post("/reset-password", async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+    if (!email || !otp || !newPassword) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const otpRecord = await Otp.findOne({ email, otp });
+    if (!otpRecord) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    const hashed = await bcrypt.hash(newPassword, 10);
+    await User.findOneAndUpdate({ email }, { password: hashed });
+    await Otp.deleteMany({ email });
+
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (error) {
+    console.error("Reset-password error:", error);
+    res.status(500).json({ message: "Password reset failed" });
+  }
+});
 
 export default router;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./LoginPage.css";
 import axios from "axios";
 
@@ -72,7 +73,9 @@ const LoginPage = () => {
           {error && <div className="error-msg">{error}</div>}
 
           <div className="form-bottom">
-            <a className="forgot-link">Forgot Password?</a>
+            <Link to="/forgot-password" className="forgot-link">
+              Forgot Password? 
+            </Link>
           </div>
 
           <button className="login-btn" type="submit">
