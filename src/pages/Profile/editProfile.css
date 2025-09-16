@@ -1,0 +1,125 @@
+
+body, .edit-profile-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background: url('../../assets/login-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.edit-profile-container {
+  max-width: 600px;
+  margin: 70px auto;
+  padding: 38px 38px 32px 38px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+  position: relative;
+  z-index: 1;
+}
+
+.back-btn { 
+  margin-top: 10px;
+  width: 100%;
+  padding: 12px 0;
+  background: #e8f0fe;
+  color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 0;
+  display: block;
+}
+.back-btn:hover {
+  background: #d2e3fc;
+  color: #174ea6;
+  text-decoration: underline;
+}
+
+.edit-profile-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #2563eb;
+}
+
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.edit-profile-form label {
+  font-weight: 500;
+  color: #2d3a4b;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.edit-profile-form input[type="password"] {
+  letter-spacing: 0.05em;
+}
+
+.email-desc {
+  font-size: 0.93rem;
+  color: #4b5563;
+  margin-top: 2px;
+  margin-left: 2px;
+  font-style: italic;
+}
+
+.edit-profile-form input {
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.edit-profile-form input:focus {
+  border-color: #4f8cff;
+}
+
+.edit-profile-form button {
+  margin-top: 10px;
+  padding: 12px 0;
+  background: #4f8cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-profile-form button:disabled {
+  background: #b6c6e3;
+  cursor: not-allowed;
+}
+
+.edit-success {
+  background: #e6fbe6;
+  color: #1a7f37;
+  border: 1px solid #b6e6b6;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.edit-error {
+  background: #ffeaea;
+  color: #d32f2f;
+  border: 1px solid #f5bcbc;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  text-align: center;
+}
