@@ -7,6 +7,8 @@ import Profile from "./pages/Profile/Profile";
 import AboutPage from "./pages/About/AboutPage";
 import VerifyOtpPage from "./pages/VerifyOtp/VerifyOtpPage";
 import HelpPage from "./pages/Help/Help";
+import ForgotPassword from "./pages/ForgotPassword/forgotPassword";
+
 function App() {
   return (
     <Router>
@@ -18,6 +20,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/verify-otp" element={<VerifyOtpPage />} />
         <Route path="/help" element={<HelpPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </Router>
   );

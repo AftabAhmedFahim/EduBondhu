@@ -69,7 +69,7 @@
 .forgot-link,
 .link-action,
 .back-home {
-  color: #cce3ff;
+  color: #ffffff;
 }
 
 .login-btn {
@@ -96,7 +96,7 @@
 }
 
 .link-action {
-  color: #007bff;
+  color: #ffffff;
   cursor: pointer;
   text-decoration: underline;
 }
