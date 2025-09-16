@@ -14,7 +14,7 @@ const HomePage = () => {
             About
           </button>
           <button>Contact</button>
-          <button>Help</button>
+          <button onClick={() => navigate("/help")}>Help</button>
           <button className="signup" onClick={() => navigate("/signup")}>
             Sign Up
           </button>
