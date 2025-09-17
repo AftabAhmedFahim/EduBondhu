@@ -105,7 +105,7 @@
 
 /* ========== About Section ========== */
 .about-section {
-  padding: 60px 20px;
+  padding: 120px 20px 60px 20px;
   text-align: center;
 }
 
@@ -129,9 +129,14 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  width: 280px;
+  width: 400px;   
+  min-height: 420px;
   text-align: center;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .team-card:hover {
@@ -141,8 +146,8 @@
 
 /* Team Images */
 .team-card img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 15px;
@@ -151,8 +156,8 @@
 
 /* Team Names */
 .team-card h3 {
-  margin: 10px 0;
-  font-size: 18px;
+  margin: 18px 0 10px 0;
+  font-size: 28px;
   font-weight: bold;
   color: #333;
 }
@@ -161,7 +166,7 @@
 .team-card a {
   color: #007bff;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 20px;
   word-break: break-word;
   transition: color 0.2s ease;
 }
@@ -169,6 +174,28 @@
 .team-card a:hover {
   color: #0056b3;
   text-decoration: underline;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 18px;
+}
+
+.social-links a svg {
+  width: 40px;  
+  height: 40px;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.social-links a:hover {
+  transform: scale(1.15);
 }
 
 /* ========== Responsive ========== */
