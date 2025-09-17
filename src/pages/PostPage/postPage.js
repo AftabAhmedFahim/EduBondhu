@@ -112,7 +112,7 @@ const PostPage = () => {
   return (
     <div className="post-page-bg">
       <div>
-        {/* Navbar copied from Profile.js */}
+        
         <nav className="navbar">
           <div className="logo">EduBondhu</div>
           <ul className="nav-links">
@@ -134,7 +134,6 @@ const PostPage = () => {
             )}
           </div>
         </nav>
-        {/* End Navbar */}
 
 <div className="post-page-container">
           <h2>Tuition & Tutor Posts</h2>

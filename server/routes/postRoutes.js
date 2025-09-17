@@ -4,7 +4,6 @@ import { authenticateToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// Get all posts
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find().sort({ createdAt: -1 });
@@ -14,7 +13,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Create a new post
 router.post("/", authenticateToken, async (req, res) => {
   try {
     const { content, author, userId } = req.body;
@@ -34,7 +32,6 @@ router.delete("/:id", authenticateToken, async (req, res) => {
     const post = await Post.findById(req.params.id);
     if (!post) return res.status(404).json({ message: "Post not found" });
 
-    // Only allow the owner to delete
     if (post.userId.toString() !== req.user.id) {
       return res.status(403).json({ message: "Not authorized to delete this post" });
     }
