@@ -80,7 +80,7 @@ const SearchPage = () => {
         <div className="logo">EduBondhu</div>
         <ul className="nav-links">
             <li><Link to="/profile">My Profile</Link></li>
-            <li><Link to="/search">Search</Link></li>
+            <li><Link to="/postPage">Feed</Link></li>
             <li><Link to="/messages">Messages</Link></li>
         </ul>
       </nav>
@@ -128,6 +128,9 @@ const SearchPage = () => {
                     </p>
                     <p>
                       <strong>Role:</strong> {user.role}
+                    </p>
+                    <p>
+                      <strong>Contact:</strong> {user.contactNumber}
                     </p>
                   </div>
                   <button
