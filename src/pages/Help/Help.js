@@ -9,13 +9,10 @@ const HelpPage = () => {
 
   return (
     <div className="help-page">
-      {/* Navbar */}
       <nav className="navbar">
-        <button className="back-btn" onClick={() => navigate("/")}>Back</button>
-        <h1 className="brand">EduBondhu</h1>
+        <span className="brand">EduBondhu</span>
       </nav>
 
-      {/* Header with background */}
       <div
         className="header-section"
         style={{ backgroundImage: `url(${bgImage})` }}
@@ -23,11 +20,9 @@ const HelpPage = () => {
         <h2 className="header-title">How can I help you?</h2>
       </div>
 
-      {/* White section with boxes */}
+     
       <div className="content-section">
         
-
-        {/* FAQ Section */}
         <div className="faq-section">
           <h3 className="faq-title">How to find tutors?</h3>
           <p className="faq-answer">
