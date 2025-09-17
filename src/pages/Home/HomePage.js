@@ -1,15 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import "./HomePage.css";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="home">
       <nav className="navbar">
         <div className="logo">EduBondhu</div>
-        <div className="nav-links">
+        <div
+          className={`hamburger${menuOpen ? " open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className={`nav-links${menuOpen ? " show" : ""}`}>
           <button onClick={() => navigate("/about")}>
             About
           </button>
@@ -84,13 +94,7 @@ const HomePage = () => {
         </button>
 
         <footer className="footer">
-          <div className="footer-links">
-            <a href="#">About Us</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Contact Us</a>
-          </div>
-          <p>© 2024 EduBondhu. All rights reserved.</p>
+          <p>© 2025 EduBondhu. All rights reserved.</p>
         </footer>
       </section>
     </div>
