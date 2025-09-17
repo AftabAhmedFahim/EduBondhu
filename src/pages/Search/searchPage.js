@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./searchPage.css";
+import { FiMenu } from "react-icons/fi"; 
 
 const SearchPage = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const SearchPage = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -78,10 +80,23 @@ const SearchPage = () => {
     <div className="search-bg-container">
       <nav className="navbar">
         <div className="logo">EduBondhu</div>
-        <ul className="nav-links">
-            <li><Link to="/profile">My Profile</Link></li>
-            <li><Link to="/postPage">Feed</Link></li>
-            <li><Link to="/messages">Messages</Link></li>
+        <button
+          className="hamburger"
+          onClick={() => setNavOpen((open) => !open)}
+          aria-label="Toggle navigation"
+        >
+          <FiMenu />
+        </button>
+        <ul className={`nav-links${navOpen ? " active" : ""}`}>
+  <li>
+    <Link to="/profile" onClick={() => setNavOpen(false)}>My Profile</Link>
+  </li>
+  <li>
+    <Link to="/postPage" onClick={() => setNavOpen(false)}>Feed</Link>
+  </li>
+  <li>
+    <Link to="/messages" onClick={() => setNavOpen(false)}>Messages</Link>
+  </li>
         </ul>
       </nav>
       <div className="search-page">
@@ -130,7 +145,7 @@ const SearchPage = () => {
                       <strong>Role:</strong> {user.role}
                     </p>
                     <p>
-                      <strong>Contact:</strong> {user.contactNumber}
+                      <strong>Contact:</strong> {user.contact}
                     </p>
                   </div>
                   <button

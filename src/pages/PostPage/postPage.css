@@ -100,3 +100,20 @@
 .delete-post-btn:hover {
   color: #b91c1c;
 }
+
+.message-btn {
+  background: transparent;
+  border: none;
+  padding: 0 8px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: #2563eb;
+  transition: color 0.2s;
+  vertical-align: middle;
+}
+
+.message-btn:hover {
+  color: #1746a2;
+  background: transparent;
+  border: none;
+}
