@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./message.css";
 
 const MessagePage = () => {
-  const [conversations, setConversations] = useState([]); // [{user: {...}, messages: [...] }]
+  const [conversations, setConversations] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [messageInput, setMessageInput] = useState("");
   const [user, setUser] = useState(null);
@@ -12,7 +12,6 @@ const MessagePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Load current user, chat users, and all users
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const token = localStorage.getItem("token");
@@ -20,7 +19,6 @@ const MessagePage = () => {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
 
-      // Fetch users you've chatted with
       fetch("http://localhost:5000/api/auth/chat-users", {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -29,7 +27,6 @@ const MessagePage = () => {
           setConversations(chatUsers.map(u => ({ user: u, messages: [] })));
         });
 
-      // Fetch all users except self
       fetch("http://localhost:5000/api/auth/users", {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -38,52 +35,53 @@ const MessagePage = () => {
     }
   }, []);
 
-  // If navigated with state (from search), open chat with that user
   useEffect(() => {
     if (location.state && location.state.userToMessage) {
       setSelectedUser(location.state.userToMessage);
     }
   }, [location.state]);
 
-  // Fetch messages when selectedUser changes
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (selectedUser && user && token) {
-      fetch(`http://localhost:5000/api/auth/messages/${selectedUser._id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-        .then(res => res.json())
-        .then(data => {
-          setConversations(prev => {
-            // Update messages for selected user
-            const idx = prev.findIndex(c => c.user._id === selectedUser._id);
-            if (idx !== -1) {
-              const updated = [...prev];
-              updated[idx].messages = data;
-              return updated;
-            } else {
-              return [
-                ...prev,
-                { user: selectedUser, messages: data }
-              ];
-            }
+    let intervalId;
+    const fetchMessages = () => {
+      if (selectedUser && user && token) {
+        fetch(`http://localhost:5000/api/auth/messages/${selectedUser._id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+          .then(res => res.json())
+          .then(data => {
+            setConversations(prev => {
+              const idx = prev.findIndex(c => c.user._id === selectedUser._id);
+              if (idx !== -1) {
+                const updated = [...prev];
+                updated[idx].messages = data;
+                return updated;
+              } else {
+                return [
+                  ...prev,
+                  { user: selectedUser, messages: data }
+                ];
+              }
+            });
           });
-        });
+      }
+    };
+    fetchMessages();
+    if (selectedUser && user && token) {
+      intervalId = setInterval(fetchMessages, 2000);
     }
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [selectedUser, user]);
 
-  // Scroll to bottom on new message
-  useEffect(() => {
-    if (messagesEndRef.current) messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [selectedUser, conversations]);
 
-  // Select a user to chat with
   const handleSelectUser = (u) => {
     setSelectedUser(u);
     setMessageInput("");
   };
 
-  // Send a message to backend and update conversation
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!messageInput.trim() || !selectedUser) return;
@@ -100,28 +98,31 @@ const MessagePage = () => {
       })
     });
     if (res.ok) {
-      const newMsg = await res.json();
-      setConversations(prev => {
-        const idx = prev.findIndex(c => c.user._id === selectedUser._id);
-        if (idx !== -1) {
-          const updated = [...prev];
-          updated[idx].messages.push(newMsg);
-          return updated;
-        } else {
-          return [
-            ...prev,
-            { user: selectedUser, messages: [newMsg] }
-          ];
-        }
-      });
       setMessageInput("");
+      fetch(`http://localhost:5000/api/auth/messages/${selectedUser._id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(res => res.json())
+        .then(data => {
+          setConversations(prev => {
+            const idx = prev.findIndex(c => c.user._id === selectedUser._id);
+            if (idx !== -1) {
+              const updated = [...prev];
+              updated[idx].messages = data;
+              return updated;
+            } else {
+              return [
+                ...prev,
+                { user: selectedUser, messages: data }
+              ];
+            }
+          });
+        });
     }
   };
 
-  // Get messages for selected user
   const currentMessages = conversations.find(c => c.user._id === (selectedUser && selectedUser._id))?.messages || [];
 
-  // Users you haven't chatted with yet
   const newChatUsers = allUsers.filter(u => !conversations.some(c => c.user._id === u._id));
 
   return (
@@ -131,14 +132,13 @@ const MessagePage = () => {
         <ul className="nav-links">
           <li><Link to="/profile">My Profile</Link></li>
           <li><Link to="/searchPage">Search</Link></li>
-          <li><Link to="/messages">Messages</Link></li>
+          <li><Link to="/postPage">Feed</Link></li>
         </ul>
       </nav>
       <div className="messenger-container">
         <div className="sidebar">
           <h3>Chats</h3>
           <div className="user-list">
-            {/* Previous chats */}
             {conversations.length === 0 && (
               <div className="no-chats">No chats yet</div>
             )}
@@ -157,7 +157,6 @@ const MessagePage = () => {
                 </div>
               </div>
             ))}
-            {/* New chat section */}
             <div className="all-users-label">Start new chat</div>
             {newChatUsers.map((u) => (
               <div
