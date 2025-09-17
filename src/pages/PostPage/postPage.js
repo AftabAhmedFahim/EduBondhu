@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./postPage.css";
-
+import { FiTrash2 } from "react-icons/fi";
 const API_URL = "http://localhost:5000/api/posts";
 
 const PostPage = () => {
@@ -72,6 +72,33 @@ const PostPage = () => {
     setLoading(false);
   };
 
+  const handleDelete = async (postId) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+  if (!confirmDelete) return;
+  setLoading(true);
+  setError("");
+  setMsg("");
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_URL}/${postId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    if (res.ok) {
+      setMsg("Post deleted successfully!");
+      fetchPosts();
+    } else {
+      setError(data.message || "Failed to delete post");
+    }
+  } catch {
+    setError("Failed to delete post");
+  }
+  setLoading(false);
+};
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -109,7 +136,7 @@ const PostPage = () => {
         </nav>
         {/* End Navbar */}
 
-        <div className="post-page-container">
+<div className="post-page-container">
           <h2>Tuition & Tutor Posts</h2>
           <form className="post-form" onSubmit={handlePost}>
             <textarea
@@ -136,6 +163,16 @@ const PostPage = () => {
                   <div className="post-date">
                     {new Date(post.createdAt).toLocaleString()}
                   </div>
+                  {user && user.id === post.userId && (
+                    <button
+                      className="delete-post-btn"
+                      onClick={() => handleDelete(post._id)}
+                      disabled={loading}
+                      title="Delete post"
+                    >
+                      <FiTrash2 />
+                    </button>
+                  )}
                 </div>
               ))
             )}
