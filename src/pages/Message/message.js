@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./message.css";
 
 const MessagePage = () => {
+  const [navOpen, setNavOpen] = useState(false); 
   const [conversations, setConversations] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [messageInput, setMessageInput] = useState("");
@@ -76,10 +77,27 @@ const MessagePage = () => {
     };
   }, [selectedUser, user]);
 
+  useEffect(() => {
+    if (!navOpen) return;
+    const handleClickOutside = (event) => {
+      const navbar = document.querySelector('.navbar');
+      if (navbar && !navbar.contains(event.target)) {
+        setNavOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [navOpen]);
 
   const handleSelectUser = (u) => {
     setSelectedUser(u);
     setMessageInput("");
+  };
+
+  const toggleNav = () => {
+    setNavOpen(!navOpen);
   };
 
   const handleSendMessage = async (e) => {
@@ -129,7 +147,10 @@ const MessagePage = () => {
     <div className="message-bg">
       <nav className="navbar">
         <div className="logo">EduBondhu</div>
-        <ul className="nav-links">
+          <button className="hamburger" onClick={toggleNav}>
+          ☰
+          </button>
+        <ul className={`nav-links ${navOpen ? "active" : ""}`}>
           <li><Link to="/profile">My Profile</Link></li>
           <li><Link to="/searchPage">Search</Link></li>
           <li><Link to="/postPage">Feed</Link></li>
