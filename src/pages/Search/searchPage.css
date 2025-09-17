@@ -28,7 +28,16 @@
   left: 0;
   z-index: 10;
 }
-
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #2563eb;
+  margin-left: auto;
+  z-index: 20;
+}
 .navbar-full {
   width: 100vw;
   min-width: 100vw;
@@ -219,4 +228,64 @@
 
 .message-btn:hover {
   background: #2563eb;
+}
+
+
+
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    min-width: 100vw;
+    z-index: 10;
+  }
+  .logo {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .hamburger {
+    display: block;
+    margin: 0 0 8px 0; /* Add space below logo */
+    align-self: flex-start; /* Align to left */
+    position: relative;
+    z-index: 20;
+  }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 80px; /* Move below hamburger */
+    left: 16px; /* Align left */
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(79,140,255,0.12);
+    border-radius: 12px;
+    flex-direction: column;
+    min-width: 160px;
+    padding: 12px 0;
+    z-index: 15;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+  .nav-links li {
+    width: 100%;
+  }
+  .nav-links li a {
+    width: 100%;
+    display: block;
+    padding: 12px 20px;
+    font-size: 1rem;
+    color: #2d3a4b;
+    border-radius: 0;
+    background: none;
+  }
+  .nav-links li a:hover {
+    background: #2563eb;
+    color: #fff;
+  }
 }

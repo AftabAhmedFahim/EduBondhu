@@ -23,7 +23,6 @@ const HomePage = () => {
           <button onClick={() => navigate("/about")}>
             About
           </button>
-          <button>Contact</button>
           <button onClick={() => navigate("/help")}>Help</button>
           <button className="signup" onClick={() => navigate("/signup")}>
             Sign Up

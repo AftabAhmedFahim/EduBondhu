@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./postPage.css";
 import { FiTrash2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { FiMessageCircle } from "react-icons/fi";
 const API_URL = "http://localhost:5000/api/posts";
 
 const PostPage = () => {
@@ -12,7 +14,7 @@ const PostPage = () => {
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(JSON.parse(storedUser));
@@ -24,7 +26,7 @@ const PostPage = () => {
     try {
       const res = await fetch(API_URL);
       const data = await res.json();
-      setPosts(data.reverse());
+      setPosts(data);
     } catch {
       setError("Failed to fetch posts");
     }
@@ -157,7 +159,19 @@ const PostPage = () => {
             ) : (
               posts.map((post) => (
                 <div className="post-card" key={post._id}>
-                  <div className="post-author">{post.author}</div>
+                  <div className="post-author">{post.author}
+                     <button
+                className="message-btn"
+                title="Message"
+                onClick={() =>
+                  navigate("/messages", {
+                    state: { userToMessage: { _id: post.userId, fullName: post.author } }
+                  })
+                }
+              >
+                <FiMessageCircle />
+              </button>
+                  </div>
                   <div className="post-content">{post.content}</div>
                   <div className="post-date">
                     {new Date(post.createdAt).toLocaleString()}
