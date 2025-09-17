@@ -80,15 +80,16 @@
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  color:#007bff
 }
 
 .signup-box h2 {
+  color: #2563eb; 
   text-align: center;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #222;
+  
 }
-
 .signup-form .form-group {
   margin-bottom: 1rem;
 }

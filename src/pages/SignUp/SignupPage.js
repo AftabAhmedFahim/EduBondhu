@@ -83,7 +83,6 @@ const SignupPage = () => {
         <button className="signup-logo" onClick={() => navigate("/")}>EduBondhu</button>
         <div className="signup-nav-links">
           <button className="nav-btn" onClick={() => navigate("/about")}>About</button>
-          <button className="nav-btn" onClick={() => navigate("/contact")}>Contact</button>
           <button className="nav-btn" onClick={() => navigate("/help")}>Help</button>
         </div>
       </nav>
