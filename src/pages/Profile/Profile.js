@@ -3,7 +3,8 @@ import {Link } from "react-router-dom";
 import "./Profile.css";
 
 const Profile = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);          // for hamburger menu
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false); 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); 
@@ -68,10 +69,33 @@ const Profile = () => {
     }
   }, []);
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+  const toggleNav = () => {
+    setNavOpen(!navOpen);
+    setProfileMenuOpen(false); // close profile menu if nav is toggled
   };
 
+  const toggleProfileMenu = () => {
+    setProfileMenuOpen(!profileMenuOpen);
+    setNavOpen(false); // close nav if profile menu is toggled
+  };
+
+   useEffect(() => {
+    if (!navOpen) return;
+
+    const handleClickOutside = (event) => {
+      const navbar = document.querySelector('.navbar');
+      if (navbar && !navbar.contains(event.target)) {
+        setNavOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [navOpen]);
+  
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -87,30 +111,33 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-page">
-      <div>
-        <nav className="navbar">
-          <div className="logo">EduBondhu</div>
-          <ul className="nav-links">
-            <li><a href="#">My Profile</a></li>
-            <li><Link to="/postPage">Feed</Link></li>
-            <li><Link to="/searchPage">Search</Link></li>
-            <li><Link to="/messages">Messages</Link></li>
-          </ul>
+  <div className="profile-page">
+    <div>
+      <nav className="navbar">
+        <div className="logo">EduBondhu</div>
+        <button className="hamburger" onClick={toggleNav}>
+          ☰
+        </button>
+        <ul className={`nav-links ${navOpen ? "active" : ""}`}>
+          <li><a href="#">My Profile</a></li>
+          <li><Link to="/postPage">Feed</Link></li>
+          <li><Link to="/searchPage">Search</Link></li>
+          <li><Link to="/messages">Messages</Link></li>
+        </ul>
 
-          <div className="profile-dropdown">
-            <button className="profile-icon" onClick={toggleDropdown}>
-              {user.fullName.charAt(0).toUpperCase()}
-            </button>
-            {dropdownOpen && (
-              <div className="dropdown-menu">
-                <Link to="/editProfile">Edit Profile</Link>
-                <Link to="/help">Help</Link>
-                <a onClick={handleLogout} style={{ cursor: "pointer" }}>Log Out</a>
-              </div>
-            )}
-          </div>
-        </nav>
+        <div className="profile-dropdown">
+          <button className="profile-icon" onClick={toggleProfileMenu}>
+            {user.fullName.charAt(0).toUpperCase()}
+          </button>
+          {profileMenuOpen && (
+            <div className="dropdown-menu">
+              <Link to="/editProfile">Edit Profile</Link>
+              <Link to="/help">Help</Link>
+              <a onClick={handleLogout} style={{ cursor: "pointer" }}>Log Out</a>
+            </div>
+          )}
+        </div>
+      </nav>
 
         <div className="profile-container">
           <h1 className="welcome-text">
